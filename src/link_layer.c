@@ -23,7 +23,7 @@
 
 int alarmEnabled = FALSE;
 int alarmCount = 0; Ns = 0; Nr = 1;
-double ti = 0.01;
+double ti = 0.1;
 
 
 
