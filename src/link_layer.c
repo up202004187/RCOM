@@ -21,6 +21,7 @@
 
 int alarmEnabled = FALSE;
 int alarmCount = 0; Ns = 0; Nr = 1;
+int i = 0;
 
 
 // Baudrate settings are defined in <asm/termbits.h>, which is
@@ -44,6 +45,7 @@ void alarmHandler(int signal)
     printf("Alarm #%d\n", alarmCount);
 }
 
+//Resets alarm counter and disables alarm
 void resetAlarm(){
     alarmEnabled = FALSE;
     alarmCount = 0;
@@ -118,7 +120,7 @@ int llopen(LinkLayer connectionParameters)
             if(read(fd, buf, 1)==0){
                 continue;
             }
-
+            // Set state machine
             switch (stateMachineState)
             {
             case Start:
@@ -508,6 +510,7 @@ int llread(unsigned char *packet)
     byteDestuff(packet, &size, &buf);
 
     int bcc2 = calculateBCC2(packet, size);
+    if(i++ % 10 == 0) bcc2 += 1;
 
     if(bcc2 != packet[size-1]){
 
