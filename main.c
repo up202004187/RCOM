@@ -3,11 +3,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <termios.h>
+
 
 #include "application_layer.h"
 
-#define BAUDRATE B19200
+#define BAUDRATE 19200
 #define N_TRIES 3 //Number of retransmission tries
 #define TIMEOUT 4 //Timeout between retransmission in seconds
 
