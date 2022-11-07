@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include <time.h>
+#include <stdlib.h>
 
 #define FALSE 0
 #define TRUE 1
@@ -22,17 +23,17 @@
 int alarmEnabled = FALSE;
 int alarmCount = 0; Ns = 0; Nr = 1;
 int i = 0;
-int random[100] = [0,0,0,0,0,0,0,0,0,0,
-1,1,1,1,1,1,1,1,1,1,
-1,1,1,1,1,1,1,1,1,1,
-1,1,1,1,1,1,1,1,1,1,
-1,1,1,1,1,1,1,1,1,1,
-1,1,1,1,1,1,1,1,1,1,
-1,1,1,1,1,1,1,1,1,1,
-1,1,1,1,1,1,1,1,1,1,
-1,1,1,1,1,1,1,1,1,1,
-1,1,1,1,1,1,1,1,1,1,
-1,1,1,1,1,1,1,1,1,1];
+int randomARR[100] = [0,0,0,0,0,0,0,0,0,0,
+                   1,1,1,1,1,1,1,1,1,1,
+                   1,1,1,1,1,1,1,1,1,1,
+                   1,1,1,1,1,1,1,1,1,1,
+                   1,1,1,1,1,1,1,1,1,1,
+                   1,1,1,1,1,1,1,1,1,1,
+                   1,1,1,1,1,1,1,1,1,1,
+                   1,1,1,1,1,1,1,1,1,1,
+                   1,1,1,1,1,1,1,1,1,1,
+                   1,1,1,1,1,1,1,1,1,1,
+                   1,1,1,1,1,1,1,1,1,1];
 
 
 // Baudrate settings are defined in <asm/termbits.h>, which is
@@ -67,7 +68,7 @@ void resetAlarm(){
 ////////////////////////////////////////////////
 int llopen(LinkLayer connectionParameters)
 {
-    srand(time(NULL));
+    srandom(time(NULL));
     connectionParameters2 = connectionParameters;
     const char *serialPortName = connectionParameters.serialPort;
 
@@ -522,8 +523,8 @@ int llread(unsigned char *packet)
     byteDestuff(packet, &size, &buf);
 
     int bcc2 = calculateBCC2(packet, size);
-    i = rand() % (99 + 1 - 0) + 99;
-    if(random[i] == 0) bcc2 += 1;
+    i = random() % (99 + 1 - 0) + 99;
+    if(randomARR[i] == 0) bcc2 += 1;
 
     if(bcc2 != packet[size-1]){
 
