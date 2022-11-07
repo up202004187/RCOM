@@ -25,7 +25,7 @@ int alarmCount = 0; Ns = 0; Nr = 1;
 
 // Baudrate settings are defined in <asm/termbits.h>, which is
 // included by <termios.h>
-#define BAUDRATE B19200
+#define BAUDRATE B9600
 #define _POSIX_SOURCE 1 // POSIX compliant source
 
 #define BUF_SIZE 256
