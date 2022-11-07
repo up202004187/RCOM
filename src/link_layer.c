@@ -14,7 +14,7 @@
 #include <termios.h>
 #include <unistd.h>
 #include <signal.h>
-
+#include <time.h>
 
 #define FALSE 0
 #define TRUE 1
@@ -22,6 +22,17 @@
 int alarmEnabled = FALSE;
 int alarmCount = 0; Ns = 0; Nr = 1;
 int i = 0;
+int rand[100] = [0,0,0,0,0,0,0,0,0,0,
+1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1];
 
 
 // Baudrate settings are defined in <asm/termbits.h>, which is
@@ -55,7 +66,8 @@ void resetAlarm(){
 // LLOPEN
 ////////////////////////////////////////////////
 int llopen(LinkLayer connectionParameters)
-{   
+{
+    srand(time(NULL));
     connectionParameters2 = connectionParameters;
     const char *serialPortName = connectionParameters.serialPort;
 
@@ -510,7 +522,8 @@ int llread(unsigned char *packet)
     byteDestuff(packet, &size, &buf);
 
     int bcc2 = calculateBCC2(packet, size);
-    if(i++ % 20 == 0) bcc2 += 1;
+    i = rand() % (99 + 1 - 0) + 99
+    if(rand[i] == 0) bcc2 += 1;
 
     if(bcc2 != packet[size-1]){
 
