@@ -524,6 +524,7 @@ int llread(unsigned char *packet)
 
     int bcc2 = calculateBCC2(packet, size);
     i = random() % (99 + 1 - 0) + 99;
+    fprintf(stderr, "%d", i);
     if(randomARR[i] == 0) bcc2 += 1;
 
     if(bcc2 != packet[size-1]){
