@@ -510,7 +510,7 @@ int llread(unsigned char *packet)
     byteDestuff(packet, &size, &buf);
 
     int bcc2 = calculateBCC2(packet, size);
-    if(i++ % 10 == 0) bcc2 += 1;
+    if(i++ % 20 == 0) bcc2 += 1;
 
     if(bcc2 != packet[size-1]){
 
