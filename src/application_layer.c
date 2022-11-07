@@ -8,13 +8,16 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/time.h>
 
 #define INFO_SIZE MAX_PAYLOAD_SIZE
 #define CONTROL_PACKET_SIZE 100
 
 void applicationLayer(const char *serialPort, const char *role, int baudRate,
                       int nTries, int timeout, const char *filename)
-{   
+{
+
+    struct timeval tval_before, tval_after, tval_result;
 
     //Create and setup Link Layer
     LinkLayer Link_Layer;
@@ -28,6 +31,7 @@ void applicationLayer(const char *serialPort, const char *role, int baudRate,
     Link_Layer.timeout = timeout;
 
     llopen(Link_Layer);
+    gettimeofday(&tval_before, NULL);
 
     switch (Link_Layer.role)
     {
@@ -128,6 +132,8 @@ void applicationLayer(const char *serialPort, const char *role, int baudRate,
     default:
         break;
     }
-
+    gettimeofday(&tval_after, NULL);
+    timersub(&tval_after, &tval_before, &tval_result);
+    printf("Time elapsed: %ld.%06ld\n", (long int)tval_result.tv_sec, (long int)tval_result.tv_usec);
     llclose(0);
 }
