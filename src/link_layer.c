@@ -523,7 +523,7 @@ int llread(unsigned char *packet)
     byteDestuff(packet, &size, &buf);
 
     int bcc2 = calculateBCC2(packet, size);
-    i = random() % (99 + 1 - 0) + 99;
+    i = (random() % (99 + 1 - 0)) + 1;
     fprintf(stderr, "I:%d\n", i);
     if(randomARR[i] == 0) bcc2 += 1;
 
