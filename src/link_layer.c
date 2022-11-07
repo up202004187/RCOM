@@ -25,7 +25,6 @@ int alarmCount = 0; Ns = 0; Nr = 1;
 
 // Baudrate settings are defined in <asm/termbits.h>, which is
 // included by <termios.h>
-#define BAUDRATE B38400
 #define _POSIX_SOURCE 1 // POSIX compliant source
 
 #define BUF_SIZE 256
@@ -76,7 +75,7 @@ int llopen(LinkLayer connectionParameters)
     // Clear struct for new port settings
     memset(&newtio, 0, sizeof(newtio));
 
-    newtio.c_cflag = B9600 | CS8 | CLOCAL | CREAD;
+    newtio.c_cflag = B38400 | CS8 | CLOCAL | CREAD;
     newtio.c_iflag = IGNPAR;
     newtio.c_oflag = 0;
 

@@ -6,7 +6,7 @@
 
 #include "application_layer.h"
 
-#define BAUDRATE 9600
+#define BAUDRATE 38400
 #define N_TRIES 3 //Number of retransmission tries
 #define TIMEOUT 4 //Timeout between retransmission in seconds
 
