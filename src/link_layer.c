@@ -22,7 +22,7 @@
 int alarmEnabled = FALSE;
 int alarmCount = 0; Ns = 0; Nr = 1;
 int i = 0;
-int rand[100] = [0,0,0,0,0,0,0,0,0,0,
+int random[100] = [0,0,0,0,0,0,0,0,0,0,
 1,1,1,1,1,1,1,1,1,1,
 1,1,1,1,1,1,1,1,1,1,
 1,1,1,1,1,1,1,1,1,1,
@@ -523,7 +523,7 @@ int llread(unsigned char *packet)
 
     int bcc2 = calculateBCC2(packet, size);
     i = rand() % (99 + 1 - 0) + 99;
-    if(rand[i] == 0) bcc2 += 1;
+    if(random[i] == 0) bcc2 += 1;
 
     if(bcc2 != packet[size-1]){
 
