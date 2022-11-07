@@ -522,7 +522,7 @@ int llread(unsigned char *packet)
     byteDestuff(packet, &size, &buf);
 
     int bcc2 = calculateBCC2(packet, size);
-    i = rand() % (99 + 1 - 0) + 99
+    i = rand() % (99 + 1 - 0) + 99;
     if(rand[i] == 0) bcc2 += 1;
 
     if(bcc2 != packet[size-1]){
