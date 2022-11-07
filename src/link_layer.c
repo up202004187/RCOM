@@ -23,7 +23,7 @@
 int alarmEnabled = FALSE;
 int alarmCount = 0; Ns = 0; Nr = 1;
 int i = 0;
-int randomARR[100] = {0,0,0,0,0,0,0,0,0,0,
+int randomARR[100] = {0,0,0,0,0,1,1,1,1,1,
                    1,1,1,1,1,1,1,1,1,1,
                    1,1,1,1,1,1,1,1,1,1,
                    1,1,1,1,1,1,1,1,1,1,
