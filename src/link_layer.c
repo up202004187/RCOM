@@ -16,14 +16,14 @@
 #include <signal.h>
 #include <time.h>
 #include <stdlib.h>
-#include<unistd.h>
+#include <unistd.h>
 
 #define FALSE 0
 #define TRUE 1
 
 int alarmEnabled = FALSE;
 int alarmCount = 0; Ns = 0; Nr = 1;
-double ti = 2;
+double ti = 1.5 ;
 
 
 
@@ -189,7 +189,7 @@ int llopen(LinkLayer connectionParameters)
         ua[4] = FLAG;
 
         /* Enviar UA */
-        sleep(ti);
+        usleep(ti*1000*1000);
         write(fd, ua, 5);
         break;
     }
@@ -214,7 +214,7 @@ int llopen(LinkLayer connectionParameters)
             alarm(connectionParameters.timeout); // Set alarm to be triggered in defined time
             
             /* Enviar Set */
-            sleep(ti);
+            usleep(ti*1000*1000);
             write(fd, set, 5);
 
             alarmEnabled = TRUE;
@@ -336,7 +336,7 @@ int llwrite(const unsigned char *buf, int bufSize)
         alarm(connectionParameters2.timeout);
 
         /* Enviar IFrame */
-        sleep(ti);
+        usleep(ti*1000*1000);
         write(fd, info, size);
         
         alarmEnabled = TRUE;
@@ -528,7 +528,7 @@ int llread(unsigned char *packet)
         REJ[4] = FLAG;
 
         fprintf(stdout, "Sending REJ\n");
-        sleep(ti);
+        usleep(ti*1000*1000);
         write(fd, REJ, 5);
 
         return -1;
@@ -545,7 +545,7 @@ int llread(unsigned char *packet)
     RR[4] = FLAG;
     
     fprintf(stdout, "Sending RR\n");
-    sleep(ti);
+    usleep(ti*1000*1000);
     write(fd, RR, 5);
 
     Nr=(Nr+1)%2;
@@ -639,7 +639,7 @@ int llclose(int showStatistics)
         ua[4] = FLAG;
 
         /* Enviar DISC */
-        sleep(ti);
+        usleep(ti*1000*1000);
         write(fd, ua, 5);
 
         /* Read até UA estar feito */
@@ -734,7 +734,7 @@ int llclose(int showStatistics)
             alarm(connectionParameters2.timeout); // Set alarm to be triggered in defined time
 
             /* Enviar DISC */
-            sleep(ti);
+            usleep(ti*1000*1000);
             write(fd, set, 5);
 
             alarmEnabled = TRUE;
@@ -831,7 +831,7 @@ int llclose(int showStatistics)
         ua[4] = FLAG;
 
         /* Enviar UA */
-        sleep(ti);
+        usleep(ti*1000*1000);
         write(fd, ua, 5);
 
         break;
