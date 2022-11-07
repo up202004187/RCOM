@@ -78,7 +78,6 @@ void applicationLayer(const char *serialPort, const char *role, int baudRate,
             // llwrite
             if(llwrite(&data_packet, bytes+dataSize)==-1){fprintf(stderr, "LLwrite error\n"); break;};
             sequenceNR++;
-            sleep(1);
         }
 
 
