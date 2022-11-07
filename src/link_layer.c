@@ -16,25 +16,15 @@
 #include <signal.h>
 #include <time.h>
 #include <stdlib.h>
+#include<unistd.h>
 
 #define FALSE 0
 #define TRUE 1
 
 int alarmEnabled = FALSE;
 int alarmCount = 0; Ns = 0; Nr = 1;
-int i = 0;
-int randomARR[100] = {
-                   0,1,1,1,1,1,1,1,1,1,
-                   1,1,1,1,1,1,1,1,1,1,
-                   1,1,1,1,1,1,1,1,1,1,
-                   1,1,1,1,1,1,1,1,1,1,
-                   1,1,1,1,1,1,1,1,1,1,
-                   1,1,1,1,1,1,1,1,1,1,
-                   1,1,1,1,1,1,1,1,1,1,
-                   1,1,1,1,1,1,1,1,1,1,
-                   1,1,1,1,1,1,1,1,1,1,
-                   1,1,1,1,1,1,1,1,1,1,
-                   1,1,1,1,1,1,1,1,1,1};
+int ti = 0;
+
 
 
 // Baudrate settings are defined in <asm/termbits.h>, which is
@@ -69,7 +59,6 @@ void resetAlarm(){
 ////////////////////////////////////////////////
 int llopen(LinkLayer connectionParameters)
 {
-    srandom(time(NULL));
     connectionParameters2 = connectionParameters;
     const char *serialPortName = connectionParameters.serialPort;
 
@@ -200,6 +189,7 @@ int llopen(LinkLayer connectionParameters)
         ua[4] = FLAG;
 
         /* Enviar UA */
+        sleep(ti);
         write(fd, ua, 5);
         break;
     }
@@ -224,6 +214,7 @@ int llopen(LinkLayer connectionParameters)
             alarm(connectionParameters.timeout); // Set alarm to be triggered in defined time
             
             /* Enviar Set */
+            sleep(ti);
             write(fd, set, 5);
 
             alarmEnabled = TRUE;
@@ -345,6 +336,7 @@ int llwrite(const unsigned char *buf, int bufSize)
         alarm(connectionParameters2.timeout);
 
         /* Enviar IFrame */
+        sleep(ti);
         write(fd, info, size);
         
         alarmEnabled = TRUE;
@@ -524,9 +516,6 @@ int llread(unsigned char *packet)
     byteDestuff(packet, &size, &buf);
 
     int bcc2 = calculateBCC2(packet, size);
-    i = (random() % (99 + 1 - 0)) + 1;
-    fprintf(stderr, "I:%d\n", i);
-    if(randomARR[i] == 0) bcc2 += 1;
 
     if(bcc2 != packet[size-1]){
 
@@ -539,6 +528,7 @@ int llread(unsigned char *packet)
         REJ[4] = FLAG;
 
         fprintf(stdout, "Sending REJ\n");
+        sleep(ti);
         write(fd, REJ, 5);
 
         return -1;
@@ -555,6 +545,7 @@ int llread(unsigned char *packet)
     RR[4] = FLAG;
     
     fprintf(stdout, "Sending RR\n");
+    sleep(ti);
     write(fd, RR, 5);
 
     Nr=(Nr+1)%2;
@@ -648,6 +639,7 @@ int llclose(int showStatistics)
         ua[4] = FLAG;
 
         /* Enviar DISC */
+        sleep(ti);
         write(fd, ua, 5);
 
         /* Read até UA estar feito */
@@ -742,6 +734,7 @@ int llclose(int showStatistics)
             alarm(connectionParameters2.timeout); // Set alarm to be triggered in defined time
 
             /* Enviar DISC */
+            sleep(ti);
             write(fd, set, 5);
 
             alarmEnabled = TRUE;
@@ -838,6 +831,7 @@ int llclose(int showStatistics)
         ua[4] = FLAG;
 
         /* Enviar UA */
+        sleep(ti);
         write(fd, ua, 5);
 
         break;
